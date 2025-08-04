@@ -31,15 +31,14 @@ void setup() {
 
 void loop() {
   float temp = dht.readTemperature();    // Celsius
-  float hum = dht.readHumidity();
 
-  if (isnan(temp) || isnan(hum)) {
+  if (isnan(temp)) {
     Serial.println("Failed to read from DHT22");
     return;
   }
 
   // Prepare data
-  String data = "field1=" + String(temp) + "&field2=" + String(hum);
+  String data = "field1=" + String(temp);
 
   // POST data to ThingSpeak
   client.post("/update?api_key=" + apiKey, "application/x-www-form-urlencoded", data);
